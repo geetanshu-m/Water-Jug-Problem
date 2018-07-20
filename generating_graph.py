@@ -4,8 +4,7 @@ relations = {}
 # Generates the nodes for the graph
 def make_tree(n):
 	for i in range(int(n)):
-	    relations[int(i)] = {}
-	print(relations)
+	    relations[int(i)] = set()
 
 # Makeing edges for nodes
 def make_relations(e):
@@ -15,10 +14,10 @@ def make_relations(e):
 		x = int(edges[0])
 		y = int(edges[1])
 		draw_edge(x, y)
-	print(relations)
+	return relations
 
 # Drawing edges
 def draw_edge(x, y):
-	node_names = set(relations[int(x)])
-	node_names.add(int(y))
-	relations[int(x)] = node_names
+	node_names = set(relations[x])
+	node_names.add(y)
+	relations[x] = node_names

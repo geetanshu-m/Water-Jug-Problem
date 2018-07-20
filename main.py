@@ -1,4 +1,6 @@
 import generating_graph	as gp
+import graph_operation as go
+
 
 if __name__ == '__main__':
 	new_line_str = input()
@@ -6,4 +8,5 @@ if __name__ == '__main__':
 	n = int(input_str[0])
 	e = int(input_str[1])
 	gp.make_tree(n)
-	gp.make_relations(e)
+	graph = gp.make_relations(e)
+	print(go.bfs(graph, 0))

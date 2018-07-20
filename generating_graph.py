@@ -1,12 +1,11 @@
 # For makeing the tree
-nodes = []
 relations = {}
 
 # Generates the nodes for the graph
 def make_tree(n):
 	for i in range(int(n)):
-	    nodes.append(chr(i+65))
-	print(nodes)
+	    relations[int(i)] = {}
+	print(relations)
 
 # Makeing edges for nodes
 def make_relations(e):
@@ -20,9 +19,6 @@ def make_relations(e):
 
 # Drawing edges
 def draw_edge(x, y):
-	if chr(x+65) in relations:
-		node_names = set(relations[chr(x+65)])
-		node_names.add(chr(y+65))
-		relations[chr(x+65)] = node_names
-	else:
-		relations[chr(x+65)] = (chr(y+65))
+	node_names = set(relations[int(x)])
+	node_names.add(int(y))
+	relations[int(x)] = node_names

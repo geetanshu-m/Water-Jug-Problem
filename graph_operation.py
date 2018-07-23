@@ -6,7 +6,21 @@ Operation
  - DFS
  - DFS - Path
 '''
-def bfs(graph, start):
+
+def bfs(graph, start, visited=set(), bfs=set()):
+    queue = set()
+    queue.add(start)
+    while list(queue)[0] not in visited:
+        visited.add(list(queue)[0])
+        bfs.add(list(queue)[0])
+        queue = set(list(queue).remove(0))
+        queue.add(graph.pop(-1))
+    return bfs
+
+
+
+
+'''def bfs(graph, start):
     visited, queue = set(), [start]
     while queue:
         vertex = queue.pop(0)
@@ -47,4 +61,4 @@ def shortest_path(graph, start, goal):
     try:
         return next(bfs_paths(graph, start, goal))
     except StopIteration:
-        return None
+        return None'''

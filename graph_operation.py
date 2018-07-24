@@ -7,15 +7,40 @@ Operation
  - DFS - Path
 '''
 
-def bfs(graph, start, visited=set(), bfs=set()):
-    queue = set()
-    queue.add(start)
-    while list(queue)[0] not in visited:
-        visited.add(list(queue)[0])
-        bfs.add(list(queue)[0])
-        queue = set(list(queue).remove(0))
-        queue.add(graph.pop(-1))
-    return bfs
+def bfs(graph, start, visited=list(), bfs=list()):
+    queue = list()
+    queue.append(start)
+    visited.append(start)
+    #print(len(list(graph.keys())))
+    while queue:
+        print("_"*20)
+        for x in graph[start]:
+            queue.append(x)
+            visited.append(x)
+        bfs.append(queue[0])
+        print(queue)
+        del queue[0]
+        print(queue)
+        print(visited)
+        print(bfs)
+        if queue:
+            print(queue[0])
+            start = queue[0]
+    
+    '''
+    print(queue)
+    i=0
+    while queue[i] not in visited:
+        print("index "+str(i))
+        visited.append(queue[0])
+        bfs.append(queue[0])
+        for x in graph[queue[0]]:
+            print(queue)
+            queue.append(x)
+        del queue[i]
+        i=i+1
+    print(bfs)
+    '''
 
 
 

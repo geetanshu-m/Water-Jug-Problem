@@ -9,4 +9,5 @@ if __name__ == '__main__':
 	e = int(input_str[1])
 	gp.make_tree(n)
 	graph = gp.make_relations(e)
-	print(go.bfs(graph, 0))
+	print(graph)
+	go.bfs(graph, 0)

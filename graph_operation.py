@@ -10,38 +10,25 @@ Operation
 def bfs(graph, start, visited=list(), bfs=list()):
     queue = list()
     queue.append(start)
-    visited.append(start)
-    #print(len(list(graph.keys())))
+    ##print(len(list(graph.keys())))
     while queue:
-        print("_"*20)
-        for x in graph[start]:
-            queue.append(x)
-            visited.append(x)
-        bfs.append(queue[0])
-        print(queue)
+        #print("_"*20)
+        if start not in visited:
+            #print("in IF")
+            visited.append(start)
+            for x in graph[start]:
+                if x not in visited:
+                    queue.append(x)
+            bfs.append(queue[0])
+        #print(queue)
         del queue[0]
-        print(queue)
-        print(visited)
-        print(bfs)
+        #print(queue)
+        #print(visited)
+        #print(bfs)
         if queue:
-            print(queue[0])
+            #print(queue[0])
             start = queue[0]
-    
-    '''
-    print(queue)
-    i=0
-    while queue[i] not in visited:
-        print("index "+str(i))
-        visited.append(queue[0])
-        bfs.append(queue[0])
-        for x in graph[queue[0]]:
-            print(queue)
-            queue.append(x)
-        del queue[i]
-        i=i+1
-    print(bfs)
-    '''
-
+    return bfs
 
 
 

@@ -1,12 +1,15 @@
-import make_states as ms
+from make_states import make_states
+import json
 
 graph = {}
+states_count = 0
 
 def add_node(x, y):
     '''
     Denoteing each node child
     params : current capacity in A, current capacity in B, previous related node
     '''
+    global states_count 
     parent_node = [x, y]
     node_list = set()
 
@@ -21,8 +24,8 @@ def add_node(x, y):
     if (parent_node[0], parent_node[1]) in node_list:
         node_list.remove((parent_node[0], parent_node[1]))
 
-    graph[str(set(parent_node))] = node_list
-    
+    graph[str(list(parent_node))] = list(node_list)
+    states_count = states_count + len(list(node_list))
 
 if __name__ == "__main__":
     '''
@@ -40,27 +43,19 @@ if __name__ == "__main__":
     desired_x = 2
     desired_y = 0
 
+    ms = make_states(A, B)
+
     add_node(x, y)
     
-    current_node = str(set([x,y]))
-
-    node_queue = set()
-    node_queue.add(current_node)
-    i = 0
-    for x in list(node_queue):
-        m=0
-        first_node=''
-        for states in graph[x]:
+    current_node = str([x,y])
+    visited = list()
+    visited.append(current_node)
+    for node in visited:
+        for states in graph[node]:
             add_node(states[0], states[1])
-            if m is 0:
-                first_node = str(set([states[0], states[1]]))
-            current_node = str(set([states[0], states[1]]))
-            node_queue.add(current_node)
-            print("node queue" + str(node_queue))
-        node_queue.remove(first_node)
-        print("node queue" + str(node_queue))
-        i = i + 1
-        if i is 10:
-            break
+            new_node = str([states[0], states[1]])
+            if new_node not in visited:
+                visited.append(str([states[0], states[1]]))
         
-    print(graph)
+    print(json.dumps(graph))
+    print(states_count)

@@ -1,5 +1,8 @@
+'''
+@TODO Mapping of nodes(0,0) and keys(0) to prevent overridding
+'''
 from make_states import make_states
-import json
+import graph_operation as go
 
 graph = {}
 states_count = 0
@@ -25,6 +28,7 @@ def add_node(x, y):
         node_list.remove((parent_node[0], parent_node[1]))
 
     graph[str(list(parent_node))] = list(node_list)
+    # print("No of " + str(list(parent_node)) + " child = " + str(len(list(node_list))))
     states_count = states_count + len(list(node_list))
 
 if __name__ == "__main__":
@@ -57,5 +61,12 @@ if __name__ == "__main__":
             if new_node not in visited:
                 visited.append(str([states[0], states[1]]))
         
-    print(json.dumps(graph))
-    print(states_count)
+    for x in graph:
+        print(str(x) + " - " + str(graph[x]))
+        if (2, 0) in graph[x]:
+            print("Found")
+    print("Total No of States = " + str(states_count))
+    '''
+    start = str([0,0])
+    print(go.bfs(graph, start))
+    '''

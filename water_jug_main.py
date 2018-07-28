@@ -43,6 +43,24 @@ if __name__ == "__main__":
     add_node(x, y)
     
     current_node = str(set([x,y]))
-    for states in graph[current_node]:
-        add_node(states[0], states[1])
+
+    node_queue = set()
+    node_queue.add(current_node)
+    i = 0
+    for x in list(node_queue):
+        m=0
+        first_node=''
+        for states in graph[x]:
+            add_node(states[0], states[1])
+            if m is 0:
+                first_node = str(set([states[0], states[1]]))
+            current_node = str(set([states[0], states[1]]))
+            node_queue.add(current_node)
+            print("node queue" + str(node_queue))
+        node_queue.remove(first_node)
+        print("node queue" + str(node_queue))
+        i = i + 1
+        if i is 10:
+            break
+        
     print(graph)

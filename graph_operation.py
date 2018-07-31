@@ -30,19 +30,14 @@ def bfs(graph, start, visited=list(), bfs=list()):
             start = queue[0]
     return bfs
 
-def dfs(graph, start, dfs=list()):
+def dfs(graph, start,visited=list(), dfs=list()):
     stack = list()
     stack.append(start)
-    i = 0
     while stack:
-        print("start of graph is", graph[start])
         start = stack.pop(-1)
-        for x in graph[start]:
-            print("x in graph is", x)
-            stack.append(x)
-        print(stack, start)
-        dfs.append(start)
-        i = i + 1
-        if i == 10:
-            break
+        if start not in visited:
+            visited.append(start)
+            for x in graph[start]:
+                stack.append(x)
+            dfs.append(start)
     return dfs

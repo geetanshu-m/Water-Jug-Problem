@@ -30,47 +30,19 @@ def bfs(graph, start, visited=list(), bfs=list()):
             start = queue[0]
     return bfs
 
-
-
-'''def bfs(graph, start):
-    visited, queue = set(), [start]
-    while queue:
-        vertex = queue.pop(0)
-        if vertex not in visited:
-            visited.add(vertex)
-            queue.extend(graph[vertex] - visited)
-    return visited
-
-def dfs(graph, start, visited=None):
-    if visited is None:
-        visited = set()
-    visited.add(start)
-    for next in graph[start] - visited:
-        dfs(graph, next, visited)
-    return visited
-
-def dfs_paths(graph, start, goal):
-    stack = [(start, [start])]
+def dfs(graph, start, dfs=list()):
+    stack = list()
+    stack.append(start)
+    i = 0
     while stack:
-        (vertex, path) = stack.pop()
-        for next in graph[vertex] - set(path):
-            if next == goal:
-                yield path + [next]
-            else:
-                stack.append((next, path + [next]))
-
-def bfs_paths(graph, start, goal):
-    queue = [(start, [start])]
-    while queue:
-        (vertex, path) = queue.pop(0)
-        for next in graph[vertex] - set(path):
-            if next == goal:
-                yield path + [next]
-            else:
-                queue.append((next, path + [next]))
-
-def shortest_path(graph, start, goal):
-    try:
-        return next(bfs_paths(graph, start, goal))
-    except StopIteration:
-        return None'''
+        print("start of graph is", graph[start])
+        start = stack.pop(-1)
+        for x in graph[start]:
+            print("x in graph is", x)
+            stack.append(x)
+        print(stack, start)
+        dfs.append(start)
+        i = i + 1
+        if i == 10:
+            break
+    return dfs

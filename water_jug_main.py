@@ -3,6 +3,7 @@
 '''
 from make_states import make_states
 import graph_operation as go
+from graphviz import Graph
 
 graph = {}
 states_count = 0
@@ -66,6 +67,13 @@ if __name__ == "__main__":
         if (2, 0) in graph[x]:
             print("Found")
     print("Total No of States = " + str(states_count))
+    '''
+    g = Graph('G', filename='process.gv', engine='sfdp')
+
+    for i,x in enumerate(graph):
+        for j,y in enumerate(graph[x]):
+            print("u.edge(str((",i,",",x,")),str((",j+i,",",y,")))")
+    '''
     '''
     start = str([0,0])
     print(go.bfs(graph, start))

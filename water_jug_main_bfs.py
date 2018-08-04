@@ -4,7 +4,7 @@
 from make_states import make_states
 import graph_operation as go
 from graphviz import Graph
-from visualize_graph import visualize_the_graph as pg
+from graphviz import Digraph
 
 graph = {}
 states_count = 0
@@ -64,7 +64,7 @@ def create_graph(x,y):
             new_node = str([states[0], states[1], states[2]])
             if new_node not in visited:
                 visited.append(str([states[0], states[1], states[2]]))
-        if k is 5:
+        if k is 100:
             break
         k = k + 1
 
@@ -77,10 +77,15 @@ def print_graph():
     print("Total No of States = " + str(states_count))
 
 def generate_graph_image():
-    g = Graph('G', filename='process.gv', engine='sfdp')
-    for i,x in enumerate(graph):
-        for j,y in enumerate(graph[x]):
-            print("u.edge(str((",x,")),str((",y,")))")
+    #u = Digraph('Water Jug', filename='water_jug.png')
+    u = Digraph('Water Jug', filename='water_jug')
+    #u.attr(size='6,6')
+    u.node_attr.update(color='lightblue2', style='filled')
+
+    for x in graph:
+        for y in graph[x]:
+            u.edge(str((x)),str((y)))
+    u.view()
 
 if __name__ == "__main__":
     '''
@@ -102,7 +107,7 @@ if __name__ == "__main__":
     
     create_graph(x,y)
 
-    print_graph()
+    #print_graph()
 
     generate_graph_image()
 
@@ -115,4 +120,3 @@ if __name__ == "__main__":
     start = str([0,0])
     print(go.bfs(graph, start))
     '''
-    pg()

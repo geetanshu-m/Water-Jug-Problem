@@ -18,7 +18,7 @@ def bfs(graph, start, visited=list(), bfs=list()):
             visited.append(start)
             for x in graph[start]:
                 if x not in visited:
-                    queue.append(x)
+                    queue.append(str(x))
             bfs.append(queue[0])
         #print(queue)
         del queue[0]

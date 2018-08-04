@@ -7,13 +7,15 @@ from graphviz import Graph
 
 graph = {}
 states_count = 0
+i = 0
+curr_node = 0
 
 def add_node(x, y):
     '''
     Denoteing each node child
     params : current capacity in A, current capacity in B, previous related node
     '''
-    global states_count 
+    global states_count,i,curr_node
     parent_node = [x, y]
     node_list = set()
 
@@ -28,39 +30,21 @@ def add_node(x, y):
     if (parent_node[0], parent_node[1]) in node_list:
         node_list.remove((parent_node[0], parent_node[1]))
 
+    parent_node = [i,x, y]
     final_node_list = list()
     for x in node_list:
         x = list(x)
+        i = i + 1
+        x.insert(0,i)
         final_node_list.append(x)
 
-    graph[str(list(parent_node))] = final_node_list 
+    print(parent_node)
+    print(final_node_list)
+
+    graph[str(list(parent_node))] = list(final_node_list)
+    print(graph)
     # print("No of " + str(list(parent_node)) + " child = " + str(len(list(node_list))))
-    states_count = states_count + len(final_node_list )
-
-def create_graph(x,y):
-    add_node(x, y)
-    current_node = str([x,y])
-    visited = list()
-    visited.append(current_node)
-    for node in visited:
-        for states in graph[node]:
-            add_node(states[0], states[1])
-            new_node = str([states[0], states[1]])
-            if new_node not in visited:
-                visited.append(str([states[0], states[1]]))
-
-def print_graph():
-    for x in graph:
-        print(str(x) + " - " + str(graph[x]))
-        if [2, 0] in graph[x]:
-            print("Found")
-    print("Total No of States = " + str(states_count))
-
-def generate_graph_image():
-    g = Graph('G', filename='process.gv', engine='sfdp')
-    for i,x in enumerate(graph):
-        for j,y in enumerate(graph[x]):
-            print("u.edge(str((",i,",",x,")),str((",j+i,",",y,")))")
+    states_count = states_count + len(list(node_list))
 
 if __name__ == "__main__":
     '''
@@ -79,16 +63,23 @@ if __name__ == "__main__":
     desired_y = 0
 
     ms = make_states(A, B)
-    
-    create_graph(x,y)
 
-    print_graph()
-
-    '''
-    start = str([0,0])
-    print(go.bfs(graph, start))
-    '''
-    print("All posible path")
-    print(graph)
-    start = str([0,0])
-    print(go.bfs(graph, start))
+    add_node(x, y)
+    j=0
+    current_node = str([curr_node,x,y])
+    curr_node = curr_node + 1
+    visited = list()
+    visited.append(current_node)
+    for node in visited:
+        for states in graph[str(node)]:
+            add_node(states[1], states[2])
+            new_node = str([curr_node, states[1], states[2]])
+            curr_node = curr_node + 1
+            if new_node not in visited:
+                visited.append(new_node)
+        
+    for x in graph:
+        print(str(x) + " - " + str(graph[x]))
+        if (2, 0) in graph[x]:
+            print("Found")
+    print("Total No of States = " + str(states_count))

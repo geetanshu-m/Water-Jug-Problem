@@ -66,14 +66,14 @@ def create_graph(x,y):
             new_node = str([states[0], states[1], states[2], states[3]])
             if new_node not in visited:
                 visited.append(str([states[0], states[1], states[2], states[3]]))
-        if k is 20:
+        if k is 256:
             break
         k = k + 1
 
 def print_graph():
     n=0
     for x in graph:
-        print(str(x) + " - " + str(graph[x]))
+        #print(str(x) + " - " + str(graph[x]))
         for x in graph[x]:
             if x[2] is 2:
                 path = trace_path(x[1])
@@ -107,6 +107,8 @@ def print_all_possible_path():
         print('(',0,',',0,')', end= '->')
         for y in x[::-1]:
             print('(',y[2],',',y[3],')', end= '->')
+            if y[2] is 2:
+                break
         print('\n')
 
 if __name__ == "__main__":

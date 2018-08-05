@@ -76,9 +76,9 @@ def print_graph():
         #print(str(x) + " - " + str(graph[x]))
         for x in graph[x]:
             if x[2] is 2:
-                path = trace_path(x[1])
-                path.insert(0,x)
-                possible_path.append(path)
+                print('(',x[2],',',x[3],')', end= '<-')
+                trace_path(x[1])
+                print('(',0,',',0,')', end= '\n')
                 n = n + 1
                 #print("Found")
     print("Total No of States = ", str(states_count), " And A=2 are ", n)
@@ -94,13 +94,12 @@ def generate_graph_image():
             u.edge(str((x)),str((y)))
     u.view()
 
-def trace_path(parent_id,path=[]):
+def trace_path(parent_id):
     for x in graph:
         for x in graph[x]:
             if x[0] is parent_id:
-                path.append(x)
+                print('(',x[2],',',x[3],')', end= '<-')
                 trace_path(x[1])
-    return path     
 
 def print_all_possible_path():
     for x in possible_path:
@@ -133,7 +132,7 @@ if __name__ == "__main__":
 
     print_graph()
 
-    print_all_possible_path()
+    #print_all_possible_path()
 
     #generate_graph_image()
 

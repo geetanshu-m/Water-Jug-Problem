@@ -9,13 +9,15 @@ from graphviz import Digraph
 graph = {}
 states_count = 0
 child_count = 0
+possible_path = []
+stack = []
 
-def add_node(i, x, y):
+def add_node(i, parent, x, y):
     '''
     Denoteing each node child
     params : current capacity in A, current capacity in B, previous related node
     '''
-    global states_count, child_count
+    global states_count, child_count, possible_path, stack
     parent_node = [x, y]
     node_list = set()
 
@@ -35,7 +37,7 @@ def add_node(i, x, y):
     if (parent_node[0], parent_node[1]) in node_list:
         node_list.remove((parent_node[0], parent_node[1]))
 
-    parent_node = [init, x, y]
+    parent_node = [init, parent, x, y]
 
     # Cleaning list
     final_node_list = list()
@@ -43,7 +45,9 @@ def add_node(i, x, y):
         x = list(x)
         i = i + 1
         child_count = child_count + 1
-        x.insert(0,child_count)
+        x.insert(0, child_count)
+        x.insert(1, init)
+        stack.append(x)
         final_node_list.append(x)
 
     # Adding to the Graph
@@ -53,32 +57,34 @@ def add_node(i, x, y):
     states_count = states_count + len(final_node_list )
 
 def create_graph(x,y):
-    add_node(0, x, y)
-    current_node = str([0,x,y])
-    visited = list()
-    visited.append(current_node)
+    add_node(0,'null', x, y)
+    stack.append(str([0,'null',x,y]))
     k = 0
-    for node in visited:
-        for states in graph[node]:
-            add_node(states[0], states[1], states[2])
-            new_node = str([states[0], states[1], states[2]])
-            if new_node not in visited:
-                visited.append(str([states[0], states[1], states[2]]))
+    while stack:
+        start = stack.pop(-1)
+        print(start)
+        for states in graph[start]:
+            add_node(states[0], states[1], states[2], states[3])
         if k is 5:
             break
         k = k + 1
 
 def print_graph():
+    n=0
     for x in graph:
-        print(str(x) + " - " + str(graph[x]))
+        #print(str(x) + " - " + str(graph[x]))
         for x in graph[x]:
-            if [x[1],x[2]] is [2,0]:
-                print("Found")
-    print("Total No of States = " + str(states_count))
+            if x[2] is 2:
+                path = trace_path(x[1])
+                path.insert(0,x)
+                possible_path.append(path)
+                n = n + 1
+                #print("Found")
+    print("Total No of States = ", str(states_count), " And A=2 are ", n)
 
 def generate_graph_image():
     #u = Digraph('Water Jug', filename='water_jug.png')
-    u = Digraph('Water Jug', filename='water_jug')
+    u = Digraph('Water Jug', filename='water_jug_bfs')
     #u.attr(size='6,6')
     u.node_attr.update(color='lightblue2', style='filled')
 
@@ -86,6 +92,23 @@ def generate_graph_image():
         for y in graph[x]:
             u.edge(str((x)),str((y)))
     u.view()
+
+def trace_path(parent_id,path=[]):
+    for x in graph:
+        for x in graph[x]:
+            if x[0] is parent_id:
+                path.append(x)
+                trace_path(x[1])
+    return path     
+
+def print_all_possible_path():
+    for x in possible_path:
+        print('(',0,',',0,')', end= '->')
+        for y in x[::-1]:
+            print('(',y[2],',',y[3],')', end= '->')
+            if y[2] is 2:
+                break
+        print('\n')
 
 if __name__ == "__main__":
     '''
@@ -107,9 +130,11 @@ if __name__ == "__main__":
     
     create_graph(x,y)
 
-    #print_graph()
+    print_graph()
 
-    generate_graph_image()
+    print_all_possible_path()
+
+    #generate_graph_image()
 
     '''
     start = str([0,0])

@@ -10,7 +10,7 @@ graph = {}
 states_count = 0
 child_count = 0
 
-def add_node(i, parent, x, y):
+def add_node(i, x, y):
     '''
     Denoteing each node child
     params : current capacity in A, current capacity in B, previous related node
@@ -35,7 +35,7 @@ def add_node(i, parent, x, y):
     if (parent_node[0], parent_node[1]) in node_list:
         node_list.remove((parent_node[0], parent_node[1]))
 
-    parent_node = [init, parent, x, y]
+    parent_node = [init, x, y]
 
     # Cleaning list
     final_node_list = list()
@@ -43,8 +43,7 @@ def add_node(i, parent, x, y):
         x = list(x)
         i = i + 1
         child_count = child_count + 1
-        x.insert(0, child_count)
-        x.insert(1, init)
+        x.insert(0,child_count)
         final_node_list.append(x)
 
     # Adding to the Graph
@@ -54,34 +53,32 @@ def add_node(i, parent, x, y):
     states_count = states_count + len(final_node_list )
 
 def create_graph(x,y):
-    add_node(0,str('null'), x, y)
-    current_node = str([0,str('null'),x,y])
+    add_node(0, x, y)
+    current_node = str([0,x,y])
     visited = list()
     visited.append(current_node)
     k = 0
     for node in visited:
         for states in graph[node]:
-            add_node(states[0], states[1], states[2], states[3])
-            new_node = str([states[0], states[1], states[2], states[3]])
+            add_node(states[0], states[1], states[2])
+            new_node = str([states[0], states[1], states[2]])
             if new_node not in visited:
-                visited.append(str([states[0], states[1], states[2], states[3]]))
+                visited.append(str([states[0], states[1], states[2]]))
         if k is 5:
             break
         k = k + 1
 
 def print_graph():
-    n=0
     for x in graph:
         print(str(x) + " - " + str(graph[x]))
         for x in graph[x]:
-            if x[1] is 2:
-                n = n + 1
-                #print("Found")
-    print("Total No of States = ", str(states_count), " And A=2 are ", n)
+            if [x[1],x[2]] is [2,0]:
+                print("Found")
+    print("Total No of States = " + str(states_count))
 
 def generate_graph_image():
     #u = Digraph('Water Jug', filename='water_jug.png')
-    u = Digraph('Water Jug', filename='water_jug_bfs')
+    u = Digraph('Water Jug', filename='water_jug')
     #u.attr(size='6,6')
     u.node_attr.update(color='lightblue2', style='filled')
 
@@ -110,7 +107,7 @@ if __name__ == "__main__":
     
     create_graph(x,y)
 
-    print_graph()
+    #print_graph()
 
     generate_graph_image()
 

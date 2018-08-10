@@ -17,10 +17,10 @@ There are two jugs of volume ```A``` litre and ```B``` litre. Now, we have to tr
 So, I have divided the execution in two major steps:
 #### Creation of graph
 1. First of all initial node  ```[0,'null', 0, 0]``` is added to the graph.
-2. Then, takeing the state ```(0, 0)``` as the initial state, all the procedures of class ```make_states.py``` is called with the help of a local object and the return states are saved as the child node of the initial node.
+2. Then, taking the state ```(0, 0)``` as the initial state, all the procedures of class ```make_states.py``` is called with the help of a local object and the return states are saved as the child node of the initial node.
 3. Repeating second step by makeing all the child as initial node, a full graph is generated.
 4. In this program I have limited generations to ```256 iterations``` which do generates ```~1481``` states.
-#### Traceing the path for the graph
+#### Tracing the path for the graph
 1. Graph is traversed index wise till the node watnted is reached.
 2. Now, when the desired node is reached, this node is backtracked to the initial node or ```root node``` and the path followed while backtracking is printed.
 3. For every instance of the desired node this path is printed.

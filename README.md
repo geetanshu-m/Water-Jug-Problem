@@ -42,7 +42,7 @@ Total No of States =  1481  And A=2 are  11
 
 ### How to run this file
 
-run ```python water_jugg_main.bfs.py```
+run ```python water_jugg_main_bfs.py```
 
 ### Requirements
 

@@ -3,8 +3,11 @@
 '''
 from make_states import make_states
 import graph_operation as go
-from graphviz import Graph
-from graphviz import Digraph
+
+# Libraries for generating the image of the tree.
+
+#from graphviz import Graph
+#from graphviz import Digraph
 
 graph = {}
 states_count = 0

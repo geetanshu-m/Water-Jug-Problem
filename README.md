@@ -1,5 +1,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0ff9237cf49f4b9192f8e6ec312d9872)](https://www.codacy.com/manual/proman24/Water-Jug-Problem?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=proman24/Water-Jug-Problem&amp;utm_campaign=Badge_Grade)
 
+[![Build Status](https://travis-ci.org/proman24/Water-Jug-Problem.svg?branch=master)](https://travis-ci.org/proman24/Water-Jug-Problem)
+
 # Water-Jug-Problem
 
 Solution to the water jug problem in my way.

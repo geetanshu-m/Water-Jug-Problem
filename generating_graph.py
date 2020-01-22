@@ -8,7 +8,7 @@ def make_tree(n):
 
 # Makeing edges for nodes
 def make_relations(e):
-	for i in range(int(e)):
+	for _ in range(int(e)):
 		new_line_str = input()
 		edges = new_line_str.split(' ')
 		x = int(edges[0])
